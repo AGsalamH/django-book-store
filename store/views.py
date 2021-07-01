@@ -1,18 +1,9 @@
 from django.http.response import HttpResponse
-from django.shortcuts import get_object_or_404, render, get_list_or_404
+from django.shortcuts import get_object_or_404, render
 
 from .models import Product, Category
 
 # Create your views here.
-
-
-def categories(request):
-    '''
-    Context pre-processor to access categories from any template 
-    '''
-    return {
-        'categories': Category.objects.all()
-    }
 
 
 def all_products(request):
