@@ -1,4 +1,4 @@
-from django.http.response import HttpResponse
+from django.http.response import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, render
 
 from .models import Product, Category
@@ -14,7 +14,10 @@ def all_products(request):
 
 
 def product_detail(request, slug):
-    product = get_object_or_404(Product, slug=slug, in_stock=True)
+    try:
+        product = Product.products.get(slug=slug)
+    except Product.DoesNotExist:
+        raise Http404('Product is NOT available.')
     return render(request, 'store/products/detail.html', {
         'product': product
     })
@@ -22,7 +25,7 @@ def product_detail(request, slug):
 
 def category(request, slug):
     c = get_object_or_404(Category, slug=slug)
-    products = c.products.all()
+    products = Product.products.filter(category=c)
 
     return render(request, 'store/products/category.html', {
         'products': products,
