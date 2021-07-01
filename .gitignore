@@ -1,0 +1,5 @@
+__pychache__/
+env/
+uploads/
+makefile
+db.sqlite3
