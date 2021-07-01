@@ -1,11 +1,11 @@
 import uuid
 from django.db import models
-from django.urls.resolvers import RegexPattern
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from core.utils import unique_slug_generator
+from .managers import ProductManager
 # Create your models here.
 
 # Current active AUTH_USER_MODEL
@@ -65,6 +65,9 @@ class Product(models.Model):
 
     in_stock = models.BooleanField(_("stock status"), default=True)
     is_active = models.BooleanField(_("active status"), default=True)
+
+    objects = models.Manager()
+    products = ProductManager()
 
     class Meta:
         db_table = 'products'

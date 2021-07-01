@@ -7,7 +7,7 @@ from .models import Product, Category
 
 
 def all_products(request):
-    products = Product.objects.filter(is_active=True, in_stock=True)
+    products = Product.products.all()
     return render(request, 'store/home.html', {
         'products': products
     })
@@ -22,7 +22,7 @@ def product_detail(request, slug):
 
 def category(request, slug):
     c = get_object_or_404(Category, slug=slug)
-    products = c.products.filter(active=True, in_stock=True)
+    products = c.products.all()
 
     return render(request, 'store/products/category.html', {
         'products': products,
