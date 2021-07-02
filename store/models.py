@@ -59,7 +59,7 @@ class Product(models.Model):
         _("Book author"), max_length=255, default='Admin')
     description = models.TextField(blank=True)
     image = models.ImageField(
-        _('product image'), upload_to='products', blank=True)
+        _('product image'), upload_to='products', default='products/default.png')
     slug = models.SlugField(unique=True, max_length=255)
     price = models.DecimalField(_("price"), max_digits=100, decimal_places=2)
 
