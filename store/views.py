@@ -23,11 +23,11 @@ def product_detail(request, slug):
     })
 
 
-def category(request, slug):
-    c = get_object_or_404(Category, slug=slug)
-    products = Product.products.filter(category=c)
+def category_products(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    products = Product.products.filter(category=category)
 
     return render(request, 'store/products/category.html', {
         'products': products,
-        'category': c
+        'category': category
     })
