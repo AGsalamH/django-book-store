@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # My custom apps
-    'store'
+    'store',
+    'carts',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
 
 
 MEDIA_ROOT = BASE_DIR / 'uploads'
