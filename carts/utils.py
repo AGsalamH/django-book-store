@@ -19,7 +19,7 @@ class Cart:
         '''
         product_id = str(product.id) 
         if product_id in self.items:
-            self.session['cart_items'][product_id]['qty'] = qty
+            self.session['cart_items'][product_id]['qty'] = int(self.items[product_id]['qty']) + 1
         else:
             self.session['cart_items'][product_id] = {
                 'name': product.name,
@@ -52,7 +52,7 @@ class Cart:
     def get_total_price(self):
         total = 0.00
         for item in self.items.values():
-            total += float(item['price'])
+            total += float(item['price']) * float(item['qty'])
         return total
 
     @property
