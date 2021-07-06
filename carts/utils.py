@@ -5,7 +5,7 @@ from store.models import Product
 class Cart:
     def __init__(self, request:HttpRequest):
         self.session = request.session
-        self.items = self.session.get('cart_items')
+        self.items = self.session.get('cart_items', None)
         if not self.items:
             self.items = self.session['cart_items'] = {}
 
@@ -19,9 +19,9 @@ class Cart:
         '''
         product_id = str(product.id) 
         if product_id in self.items:
-            self.session[product_id]['qty'] = qty
+            self.session['cart_items'][product_id]['qty'] = qty
         else:
-            self.session[product_id] = {
+            self.session['cart_items'][product_id] = {
                 'name': product.name,
                 'price': str(product.price),
                 'url': product.get_absolute_url(), 
@@ -35,7 +35,7 @@ class Cart:
         """
         product_id = str(product.id) 
         if product_id in self.items:
-            self.session[product_id]['qty'] = qty
+            self.session['cart_items'][product_id]['qty'] = qty
             self.save()
         else:
             self.add(product, qty=qty)
@@ -46,7 +46,7 @@ class Cart:
         """
         product_id = str(product.id)
         if product_id in self.items:
-            del self.session[product_id]
+            del self.session['cart_items'][product_id]
             self.save()
 
     def get_total_price(self):
@@ -55,6 +55,9 @@ class Cart:
             total += float(item['price'])
         return total
 
+    @property
+    def unique_items(self):
+        return len([item for item in self.items.keys()]) if self.items else 0
 
 '''
     def __iter__(self):
