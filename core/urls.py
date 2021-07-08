@@ -17,9 +17,12 @@ from django.urls import path, include
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
+from django.shortcuts import redirect
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', lambda req: redirect('all_products')),
     path('store/', include('store.urls')),
     path('cart/', include('carts.urls'))
 ] 
