@@ -26,6 +26,7 @@ class Cart:
                 'price': str(product.price),
                 'url': product.get_absolute_url(), 
                 'qty': qty,
+                'image': product.image.url
             }
         self.save()
     

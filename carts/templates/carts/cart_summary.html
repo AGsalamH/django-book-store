@@ -51,34 +51,34 @@
       </div>
       <div class="col-md-7 col-lg-8 p-0">
 
-        {% for id in cart.items %}
-          {% with id.item as item %}
-            <div class="card mb-3 border-0 product-item" data-index="{{id}}">
-              <div class="row g-0">
-                {% comment %} <div class="col-md-2 d-none d-md-block">
-                  <img class="img-fluid mx-auto d-block" alt="Responsive image"
-                      src="{{ product.image.url }}" />
-                </div> {% endcomment %}
-                <div class="col-md-10 ps-md-3">
-                  <div class="card-body p-1">
-                    <a class="text-decoration-none text-reset" href="{{item.url}}">
-                      <p class="card-text pb-3">{{item.name}}</p>
-                    </a>
-                        <label for="select">Qty</label>
-                        <select id="select {{ id }}" style="width:50px;height:31px;">
-                          <option value="" selected disabled hidden>{{item.qty}}</option>
-                          <option value="">1</option>
-                          <option value="">2</option>
-                          <option value="">3</option>
-                          <option value="">4</option>
-                        </select>
-                    <a type="button" id="update-button" data-index="{{id}}" class="update-button text-decoration-none small ps-3">Update</a>
-                    <a type="button" id="delete-button" data-index="{{id}}" class="delete-button text-decoration-none small">Delete</a>
-                  </div>
-                </div>
+        {% for id, item in cart.items.items %} 
+
+        <div class="card mb-3 border-0 product-item" data-index="{{id}}">
+          <div class="row g-0">
+            <div class="col-md-2 d-none d-md-block">
+              <img class="img-fluid mx-auto d-block" alt="Responsive image"
+                  src="{{ item.image }}" />
+            </div>
+            <div class="col-md-10 ps-md-3">
+              <div class="card-body p-1">
+                <a class="text-decoration-none text-reset" href="{{item.url}}">
+                  <p class="card-text pb-3">{{item.name}}</p>
+                </a>
+                    <label for="select">Qty</label>
+                    <select id="select{{id}}" style="width:50px;height:31px;" class="selectpicker">
+                      <option value="" selected disabled hidden>{{item.qty}}</option>
+                      <option value="">1</option>
+                      <option value="">2</option>
+                      <option value="">3</option>
+                      <option value="">4</option>
+                    </select>
+                <a type="button" id="update-button" data-index="{{id}}" class="update-button text-decoration-none small ps-3 btn btn-warning">Update</a>
+                <a type="button" id="delete-button" data-index="{{id}}" class="delete-button text-decoration-none small btn btn-danger">Delete</a>
               </div>
-            </div>          
-          {% endwith %} 
+            </div>
+          </div>
+        </div>
+        
         {% endfor %}
       </div>
     </div>
