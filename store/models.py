@@ -6,11 +6,7 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from core.utils import unique_slug_generator
 from .managers import ProductManager
-# Create your models here.
-
-# Current active AUTH_USER_MODEL
-# cuz later im gonna create my custom user model
-User = get_user_model()
+from django.conf import settings
 
 
 class Category(models.Model):
@@ -49,12 +45,11 @@ class Product(models.Model):
                           primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=120)
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='products')
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='products')
     category = models.ForeignKey(
-        'store.Category', on_delete=models.SET_NULL, null=True,  related_name='products')
+        Category, on_delete=models.SET_NULL, null=True,  related_name='products')
     created_at = models.DateTimeField(_('Created at'), auto_now_add=True)
     updated_at = models.DateTimeField(_('Updated at'), auto_now=True)
-
     author = models.CharField(
         _("Book author"), max_length=255, default='Admin')
     description = models.TextField(blank=True)
@@ -82,7 +77,6 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('product_detail', args=[self.slug])
-    
 
     @property
     def title(self):
