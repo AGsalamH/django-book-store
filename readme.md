@@ -5,8 +5,8 @@
     - Fetching products
     - Filtering by category 
     - Session-based cart
+    - Authentication
 ---
 ## Todo
-    - Authentication
     - Orders
     - Payment
