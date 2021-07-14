@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', lambda req: redirect('all_products')),
     path('store/', include('store.urls')),
-    path('cart/', include('carts.urls'))
+    path('cart/', include('carts.urls')),
+    path('accounts/', include('accounts.urls')),
 ] 
 
 if settings.DEBUG:
