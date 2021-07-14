@@ -55,20 +55,17 @@ class LoginForm(forms.Form):
         return email
 
     def clean(self, *args, **kwargs):
-        cleaned_data = super().clean()
         email = self.cleaned_data['email']
         password = self.cleaned_data['password']
 
-        user = authenticate(self.request, email=email, password=password)
-        if user is None:
+        self.user = authenticate(self.request, email=email, password=password)
+        if self.user is None:
             raise forms.ValidationError(self.error_messages['invalid_login'])
-        self.confirm_login_allowed()
-        self.user = user
-        return cleaned_data
+        return self.cleaned_data
 
-    def confirm_login_allowed(self):
-        if not self.user.is_active:
-            raise forms.ValidationError(self.error_messages['inactive'])
+    # def confirm_login_allowed(self): # authenticate function also checks for is_valid
+    #     if not self.user.is_active:
+    #         raise forms.ValidationError(self.error_messages['inactive'])
 
     def get_user(self):
         return self.user

@@ -26,14 +26,12 @@
                                 <h3 class="mb-2 font-weight-bold">Create an account</h3>
                                 <p class="mb-4">It's free and only takes a minute.</p>
 
-                                {% if form.errors %}
+                                {% if form.non_field_errors %}
                                     <p>Please correct the following errors:</p>
-                                    {% for field in form %}
-                                        {% if field.errors %}
-                                            <div class="alert alert-primary" role="alert">
+                                    {% for error in form.non_field_errors %}
+                                            <div class="alert alert-danger" role="alert">
                                                 {{ field.label }}: {{ field.errors|striptags }}
                                             </div>
-                                        {% endif %}
                                     {% endfor %}
                                 {% endif %}
 
@@ -42,6 +40,11 @@
                                         {{ field.label_tag }} {{ field }}
                                         {% if field.help_text %}
                                             <p class="help">{{ field.help_text|safe }}</p>
+                                        {% endif %}
+                                        {% if field.errors %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ field.errors|striptags }}
+                                            </div>
                                         {% endif %}
                                     </div>
                                 {% endfor %}

@@ -30,7 +30,30 @@
 
                                 {% csrf_token %}
                                 <h3 class="mb-4">Sign In</h3>
-                                {{ form }}
+
+                                {% if form.non_field_errors %}
+                                    <p>Please correct the following errors:</p>
+                                    {% for error in form.non_field_errors %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ error|striptags }}
+                                            </div>
+                                    {% endfor %}
+                                {% endif %}
+
+                                {% for field in form %}
+                                    <div class="fieldWrapper">
+                                        {{ field.label_tag }} {{ field }}
+                                        {% if field.help_text %}
+                                            <p class="help">{{ field.help_text|safe }}</p>
+                                        {% endif %}
+                                        {% if field.errors %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ field.errors|striptags }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+
                                 <div class="d-grid gap-2">
                                     {% comment %} <input type="hidden" name="next" value="{{ next }}"> {% endcomment %}
                                     <button class="btn btn-primary py-2 mb-4 mt-5 fw-bold" type="submit" value="Log-in">Sign in
