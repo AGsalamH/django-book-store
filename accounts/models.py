@@ -35,7 +35,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     created = models.DateTimeField(_("Created at"), auto_now_add=True)
     updated = models.DateTimeField(_("Updated at"), auto_now=True)
-    
+    last_login = None
 
     USERNAME_FIELD = 'email' # Used for authentication
     objects = CustomUserManager() # model manager
